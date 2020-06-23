@@ -3,7 +3,7 @@ class V1::SessionsController < ApplicationController
     user = User.where(email: params[:email]).first
 
     if user&.valid_password?(params[:password])
-      render json: user.as_json(only: [:id, :email]), status: :created  # returns 201
+      render json: user.as_json(only: [:email, :authentication_token]), status: :created  # returns 201
     else
       head(:unauthorized)
     end
