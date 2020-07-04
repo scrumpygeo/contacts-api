@@ -2,7 +2,8 @@ class V1::ContactsController < ApplicationController
 
   #  NB todo: error checking with render
   def index 
-    @contacts = current_user.contacts
+    # @contacts = current_user.contacts  # this is for when login setup 
+    @contacts = Contact.all
 
     render :index, status: :ok
   end
