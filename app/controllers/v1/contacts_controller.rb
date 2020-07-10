@@ -2,19 +2,32 @@ class V1::ContactsController < ApplicationController
 
   #  NB todo: error checking with render
   def index 
-    # @contacts = current_user.contacts  # this is for when login setup 
-    @contacts = Contact.all
-
+    # @contacts = Contact.all
+    @contacts = current_user.contacts  # this is for when login setup 
+    
     render :index, status: :ok
   end
 
   def create 
-    # @contact = Contact.new(contact_params)
+    # @contact = Contact.new(contact_params)  # no verification of current user in this line
     @contact = current_user.contacts.build(contact_params)
 
     @contact.save
     render :create, status: :created
   end
+
+
+
+  def update 
+    @contact = current_user.contacts.where(id: params[:id]).update(contact_params).first
+  
+  
+    # @contact = current_user.contacts.where(id: params[:id]).first
+    # @contact = @contact.update(contact_params)
+  
+    render :show, status: :ok
+  end
+
 
   def destroy
     # @contact = Contact.where(id: params[:id]).first
