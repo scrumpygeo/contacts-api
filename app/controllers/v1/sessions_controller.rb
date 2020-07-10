@@ -5,7 +5,10 @@ class V1::SessionsController < ApplicationController
   end
 
   def create 
+    # NB User.find_by(email: params[:email]) is case sensitive. Use User.find_for_authentication(email: params[:email])
     @user = User.where(email: params[:email]).first
+    # @user = User.find_for_authentication(email: params[:email]).first
+
 
     if @user&.valid_password?(params[:password])
       render :create, status: :created  # renders created view and returns 201 status
