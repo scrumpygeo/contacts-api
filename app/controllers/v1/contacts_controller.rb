@@ -16,15 +16,15 @@ class V1::ContactsController < ApplicationController
     render :create, status: :created
   end
 
+  def show 
+     @contact = current_user.contacts.where(id: params[:id]).first
+     render :show, status: :ok
+  end
 
 
   def update 
     @contact = current_user.contacts.where(id: params[:id]).update(contact_params).first
-  
-  
-    # @contact = current_user.contacts.where(id: params[:id]).first
-    # @contact = @contact.update(contact_params)
-  
+    
     render :show, status: :ok
   end
 
